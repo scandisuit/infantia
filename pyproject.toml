@@ -1,9 +1,22 @@
 [project]
 name = "infantia"
 version = "0.1.0"
-description = "Privacy-first child health tracker — self-hostable, GDPR-compliant"
+description = "Privacy-first child health tracker — vaccines, diseases, injuries, and sharing"
 requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    "sqlalchemy>=2.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "python-jose[cryptography]>=3.3",
+    "bcrypt>=4.0",
+    "python-multipart>=0.0.6",
+]
 
-[tool.ruff]
-line-length = 120
-target-version = "py311"
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

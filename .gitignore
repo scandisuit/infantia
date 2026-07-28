@@ -12,3 +12,7 @@ build/
 .DS_Store
 node_modules/
 *.log
+dev.db
+*.db
+*.db-shm
+*.db-wal
