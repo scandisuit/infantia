@@ -100,6 +100,7 @@ class Child(Base):
     vaccines = relationship("VaccineRecord", back_populates="child", cascade="all, delete-orphan")
     diseases = relationship("DiseaseRecord", back_populates="child", cascade="all, delete-orphan")
     injuries = relationship("InjuryRecord", back_populates="child", cascade="all, delete-orphan")
+    medicines = relationship("MedicineRecord", back_populates="child", cascade="all, delete-orphan")
     shares = relationship("ShareLink", back_populates="child", cascade="all, delete-orphan")
 
 
@@ -159,6 +160,26 @@ class InjuryRecord(Base):
     created_at = Column(DateTime, default=_utcnow)
 
     child = relationship("Child", back_populates="injuries")
+
+
+# ── Medicine Record ────────────────────────────────────────────────────────────
+
+class MedicineRecord(Base):
+    __tablename__ = "medicine_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    child_id = Column(Integer, ForeignKey("children.id", ondelete="CASCADE"), nullable=False)
+    medicine_name = Column(String(256), nullable=False)  # e.g. "Paracetamol", "Amoxicillin"
+    dosage = Column(String(128), nullable=True, server_default="")  # e.g. "5ml", "1 tablet"
+    frequency = Column(String(128), nullable=True, server_default="")  # e.g. "twice daily"
+    date_started = Column(DateTime, nullable=False)
+    date_ended = Column(DateTime, nullable=True)  # None = ongoing
+    prescribed_by = Column(String(256), nullable=True, server_default="")  # doctor name
+    reason = Column(Text, nullable=True, server_default="")  # why prescribed
+    notes = Column(Text, nullable=True, server_default="")
+    created_at = Column(DateTime, default=_utcnow)
+
+    child = relationship("Child", back_populates="medicines")
 
 
 # ── Share Link ──────────────────────────────────────────────────────────────────

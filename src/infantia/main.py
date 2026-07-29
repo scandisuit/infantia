@@ -9,6 +9,7 @@ from infantia.api.auth import router as auth_router
 from infantia.api.children import router as children_router
 from infantia.api.diseases import router as diseases_router
 from infantia.api.injuries import router as injuries_router
+from infantia.api.medicines import router as medicines_router
 from infantia.api.shares import router as shares_router
 from infantia.api.vaccines import router as vaccines_router
 from infantia.config import settings
@@ -37,6 +38,11 @@ app.add_middleware(
         "https://infantia.rsol.io",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://localhost:3456",
+        "http://localhost:8081",
+        "http://127.0.0.1:8081",
+        "https://sound-cylinder-admit-room.trycloudflare.com",
+        "https://temperature-fit-upgrades-fri.trycloudflare.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -49,6 +55,7 @@ app.include_router(children_router)
 app.include_router(vaccines_router)
 app.include_router(diseases_router)
 app.include_router(injuries_router)
+app.include_router(medicines_router)
 app.include_router(shares_router)
 
 
